@@ -1,4 +1,4 @@
-# team-kit — PRD 하나로 시작하는 팀 프로젝트 키트 (A·B 두 방식)
+# prd-team — PRD 하나로 시작하는 팀 프로젝트 키트 (A·B 두 방식)
 
 PRD(요구사항 초안) 파일 하나를 넣으면 총괄(PM)이 이를 분석해 요구사항 문서를 만들고, 사용자에게 확인을 받습니다. 그다음 팀을 꾸려 기획, 디자인, 설계, 구현, 테스트, 보안·준법 점검, 배포 준비, 출시 판정까지 진행합니다.
 사용자는 **PM하고만** 대화합니다. 결과물은 개인 GitHub **비공개** 저장소에 `[역할]` 접두어를 붙인 커밋으로 쌓이고, 회의록·결정·작업 기록·테스트 결과는 모두 문서로 남습니다.
@@ -10,20 +10,20 @@ PRD(요구사항 초안) 파일 하나를 넣으면 총괄(PM)이 이를 분석�
 ## 빠른 시작 (Claude Code 안에서)
 PC마다 한 번 플러그인을 설치합니다.
 ```
-/plugin install team-kit --marketplace Day-DingDing/team-kit
-/plugin install session-link@team-kit          ← B 방식을 쓸 때만
+/plugin install prd-team --marketplace Day-DingDing/team-kit
+/plugin install session-link@prd-team          ← B 방식을 쓸 때만
 ```
 그다음 원하는 폴더를 지정해 설치합니다. 폴더는 지금 세션의 폴더 기준 상대 경로나 절대 경로로 씁니다.
 ```
-/team-kit:a ~/work/my-app --prd ~/my-prd.md     ← A 방식 (에이전트 팀)
-/team-kit:b ~/work/my-app2 --prd ~/my-prd.md    ← B 방식 (세션 연결)
+/prd-team:a ~/work/my-app --prd ~/my-prd.md     ← A 방식 (에이전트 팀)
+/prd-team:b ~/work/my-app2 --prd ~/my-prd.md    ← B 방식 (세션 연결)
 ```
 설치가 끝나면 터미널에서 `~/work/my-app/start.sh`로 엽니다. 그다음 PM에게 **"docs/prd 의 PRD로 프로젝트를 시작해"**라고 입력합니다.
 
-- 명령은 반드시 `team-kit:` 이름공간을 붙여서 씁니다. 시험해 보니 `/a`나 `/team-kit-a`처럼 이름공간 없이 입력하면 명령으로 인식되지 않았습니다.
+- 명령은 반드시 `prd-team:` 이름공간을 붙여서 씁니다. 시험해 보니 `/a`나 `/prd-team-a`처럼 이름공간 없이 입력하면 명령으로 인식되지 않았습니다.
 - 공개 저장소라서 GitHub 로그인 없이 설치할 수 있습니다. (`gh` 로그인은 설치한 프로젝트의 GitHub 저장소를 만들 때만 필요합니다.)
 - 이미 열려 있는 세션에는 설치한 플러그인이 바로 적용되지 않습니다. `/reload-plugins`를 실행하거나 세션을 다시 엽니다.
-- 키트를 최신으로 받으려면 `/plugin marketplace update team-kit`을 실행한 뒤 `/reload-plugins`를 실행합니다.
+- 키트를 최신으로 받으려면 `/plugin marketplace update prd-team`을 실행한 뒤 `/reload-plugins`를 실행합니다.
 
 ## 시작하기
 
@@ -33,26 +33,26 @@ Claude Code 밖의 터미널에서 쓰려면 저장소를 받아 `setup.sh`를 �
 git clone https://github.com/Day-DingDing/team-kit.git <받을 폴더>
 <받을 폴더>/setup.sh               # 명령 등록 + B용 session-link 설치
 <받을 폴더>/setup.sh --no-plugin   # 명령만 등록 (A 방식만 쓸 때)
-team-kit-a ~/work/my-app --prd ~/my-prd.md
+prd-team-a ~/work/my-app --prd ~/my-prd.md
 ```
-- `setup.sh`는 `~/.local/bin`에 `team-kit-a`, `team-kit-b` 명령을 만듭니다. 받은 폴더를 가리키는 링크입니다.
+- `setup.sh`는 `~/.local/bin`에 `prd-team-a`, `prd-team-b` 명령을 만듭니다. 받은 폴더를 가리키는 링크입니다.
   - `~/.local/bin`이 PATH에 없으면 추가할 줄을 알려 줍니다.
   - 키트 폴더를 옮겼다면 다시 실행합니다.
 - 이미 켜져 있는 session-link가 있으면 플러그인 설치는 건너뜁니다.
-- 슬래시 명령(`/team-kit:a`)과 셸 명령(`team-kit-a`)은 같은 `install.sh`를 실행합니다. 옵션도 같습니다.
+- 슬래시 명령(`/prd-team:a`)과 셸 명령(`prd-team-a`)은 같은 `install.sh`를 실행합니다. 옵션도 같습니다.
 
 ### 1단계. 준비물 점검
-설치 명령(`/team-kit:a`, `/team-kit:b`, `team-kit-a`, `team-kit-b`)은 시작할 때 아래 항목을 점검합니다. 빠진 것이 있으면 목록을 보여 주고 멈춥니다.
+설치 명령(`/prd-team:a`, `/prd-team:b`, `prd-team-a`, `prd-team-b`)은 시작할 때 아래 항목을 점검합니다. 빠진 것이 있으면 목록을 보여 주고 멈춥니다.
 
 | 준비물 | 필요한 경우 | 확인 방법 |
 |---|---|---|
 | Claude Code (2.1.300 이상), claude.ai 로그인 | 항상 | `claude --version` |
 | git, python3, tmux | 항상 | `command -v tmux` |
 | gh (GitHub CLI) 로그인 | GitHub 저장소를 만들 때 (`--no-github`이면 필요 없음) | `gh auth status` |
-| session-link 플러그인 | **B 방식일 때만** (`/plugin install session-link@team-kit` 또는 `setup.sh`) | `claude plugin list`에 `session-link@…`이 `enabled`로 보이는지 |
+| session-link 플러그인 | **B 방식일 때만** (`/plugin install session-link@prd-team` 또는 `setup.sh`) | `claude plugin list`에 `session-link@…`이 `enabled`로 보이는지 |
 | Claude Design 사용 권한 | 화면이 있는 프로젝트 (디자인 담당이 시안을 만들 때) | claude.ai 계정에서 Design 유형을 쓸 수 있는지 |
 
-B 방식을 쓰려면 session-link를 설치해야 합니다. 방법은 `/plugin install session-link@team-kit` 또는 `setup.sh`입니다. 설치한 뒤 이미 열려 있는 Claude Code 세션에는 바로 적용되지 않습니다. 그 세션에서 `/reload-plugins`를 실행하거나 세션을 다시 여세요.
+B 방식을 쓰려면 session-link를 설치해야 합니다. 방법은 `/plugin install session-link@prd-team` 또는 `setup.sh`입니다. 설치한 뒤 이미 열려 있는 Claude Code 세션에는 바로 적용되지 않습니다. 그 세션에서 `/reload-plugins`를 실행하거나 세션을 다시 여세요.
 
 ### 2단계. 권한 설정 이해하기 (중요)
 팀원들은 확인을 기다리지 않고 진행해야 합니다. 그래서 생성되는 프로젝트의 `team.json`에 아래 값을 넣어 두었습니다.
@@ -93,11 +93,11 @@ B 방식을 쓰려면 session-link를 설치해야 합니다. 방법은 `/plugin
 
 ### 4단계. 설치하고 실행
 ```bash
-/team-kit:a ~/work/my-app --prd ~/my-prd.md      # A 방식 + GitHub 비공개 저장소 my-app
-/team-kit:b ~/work/my-app --prd ~/my-prd.md      # B 방식
-/team-kit:a ./my-app --no-github                 # GitHub 없이 로컬만
-/team-kit:a ~/work/my-app --repo my-app-2026     # GitHub 저장소 이름을 따로 지정
-# 셸에서는 같은 인자로 team-kit-a / team-kit-b
+/prd-team:a ~/work/my-app --prd ~/my-prd.md      # A 방식 + GitHub 비공개 저장소 my-app
+/prd-team:b ~/work/my-app --prd ~/my-prd.md      # B 방식
+/prd-team:a ./my-app --no-github                 # GitHub 없이 로컬만
+/prd-team:a ~/work/my-app --repo my-app-2026     # GitHub 저장소 이름을 따로 지정
+# 셸에서는 같은 인자로 prd-team-a / prd-team-b
 ```
 - **폴더**
   - 없으면 새로 만듭니다.
@@ -121,11 +121,11 @@ B 방식을 쓰려면 session-link를 설치해야 합니다. 방법은 `/plugin
 
 ## 키트 구성
 ```
-team-kit/
-├── .claude-plugin/       플러그인(team-kit)과 마켓플레이스(team-kit: team-kit, session-link) 정의
-├── commands/a.md, b.md   슬래시 명령 /team-kit:a, /team-kit:b → install.sh 실행
-├── setup.sh              (셸에서 쓸 때) team-kit-a/b 명령 등록, session-link 플러그인 설치
-├── bin/team-kit-a, team-kit-b   → install.sh --mode a|b
+team-kit/   (저장소 폴더)
+├── .claude-plugin/       플러그인(prd-team)과 마켓플레이스(prd-team: prd-team, session-link) 정의
+├── commands/a.md, b.md   슬래시 명령 /prd-team:a, /prd-team:b → install.sh 실행
+├── setup.sh              (셸에서 쓸 때) prd-team-a/b 명령 등록, session-link 플러그인 설치
+├── bin/prd-team-a, prd-team-b   → install.sh --mode a|b
 ├── install.sh            설치: 사전 점검 → 겹침 확인 → 복사 → git (init 또는 기존 저장소) → (GitHub 비공개 저장소)
 ├── plugins/session-link/ B 방식용 세션 연결 플러그인 (프로젝트의 session-link.json 을 읽음)
 ├── project/              A·B 공통으로 복사되는 것
@@ -227,8 +227,8 @@ team-kit/
 ## 설치·도구 시험
 | 항목 | 결과 |
 |---|---|
-| `/team-kit:a <폴더>` 슬래시 명령 (GitHub에서 플러그인 설치 후) | 설치·커밋·PRD 복사 성공. 폴더 인자가 없으면 사용법 안내 |
-| `team-kit-a` / `team-kit-b` 셸 명령 (저장소 clone 후 `setup.sh`) | A·B 설치 성공, B는 역할 칸 9개 열림 |
+| `/prd-team:a <폴더>` 슬래시 명령 (GitHub에서 플러그인 설치 후) | 설치·커밋·PRD 복사 성공. 폴더 인자가 없으면 사용법 안내 |
+| `prd-team-a` / `prd-team-b` 셸 명령 (저장소 clone 후 `setup.sh`) | A·B 설치 성공, B는 역할 칸 9개 열림 |
 | 이미 있는 폴더·저장소에 설치 | 기존 저장소를 그대로 쓰고 키트 파일만 커밋, 작업 중인 파일은 건드리지 않음 |
 | 겹치는 파일 / 스테이징된 변경이 있을 때 | 아무것도 바꾸지 않고 멈춤 |
 | 사전 점검 (tmux 없음, gh 미로그인, B에 session-link 없음) | 각각 안내 후 멈춤 |
@@ -239,7 +239,7 @@ team-kit/
 ## 확인하지 못한 것
 - 사용자 설정에 권한 확인 생략이 없는 PC에서 A 팀원 칸이 리드의 권한 모드를 물려받는지
 - A에서 공유 작업 목록 도구가 PM에게 보이지 않는 원인 (`docs/board.md`로 대신 관리)
-- 대화형 화면에서 `team-kit:` 이름공간 없이 명령을 입력할 수 있는지 (`claude -p`에서는 인식되지 않았음)
+- 대화형 화면에서 `prd-team:` 이름공간 없이 명령을 입력할 수 있는지 (`claude -p`에서는 인식되지 않았음)
 
 ## 키트를 고칠 때 (관리용)
 - 키트를 고친 뒤 `.claude-plugin/plugin.json`의 `version`을 올리고 push합니다. 버전이 같으면 `/plugin marketplace update` 뒤에도 설치된 플러그인이 갱신되지 않습니다.

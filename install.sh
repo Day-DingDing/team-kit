@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 팀 키트를 원하는 폴더에 설치한다. 보통은 setup.sh 가 만든 명령 team-kit-a / team-kit-b 로 부른다.
+# 팀 키트를 원하는 폴더에 설치한다. 보통은 setup.sh 가 만든 명령 prd-team-a / prd-team-b 로 부른다.
 #   install.sh --mode a|b <폴더> [--prd <PRD 파일>] [--no-github] [--repo <GitHub 저장소 이름>]
 #   --mode a : 에이전트 팀 — PM(리드) 세션 하나가 팀원을 만들어 진행
 #   --mode b : 세션 연결 — 역할마다 독립 세션(roles/<역할>)을 session-link로 연결
@@ -44,7 +44,7 @@ if [ "$github" = 1 ] && [ "$has_origin" = 0 ]; then
 fi
 if [ "$mode" = b ] && command -v claude >/dev/null; then
   claude plugin list 2>/dev/null | grep -A4 "session-link@" | grep -q "enabled" ||
-    miss+=("B 방식에 필요한 session-link 플러그인이 없습니다. Claude Code에서 /plugin install session-link@team-kit (또는 키트 폴더에서 ./setup.sh)")
+    miss+=("B 방식에 필요한 session-link 플러그인이 없습니다. Claude Code에서 /plugin install session-link@prd-team (또는 키트 폴더에서 ./setup.sh)")
 fi
 if [ -d "$target/.git" ] && [ -n "$(git -C "$target" diff --cached --name-only 2>/dev/null)" ]; then
   miss+=("$target 저장소에 스테이징된 변경이 있습니다. 먼저 커밋하거나 내려 주세요 (키트 커밋에 섞이지 않게)")
@@ -64,7 +64,7 @@ else
     login=$(gh api user --jq .login); uid=$(gh api user --jq .id)
     author_name="$login"; author_email="${uid}+${login}@users.noreply.github.com"
   fi
-  author_name=${author_name:-team-kit}; author_email=${author_email:-team-kit@localhost}
+  author_name=${author_name:-prd-team}; author_email=${author_email:-prd-team@localhost}
 fi
 
 # ── 임시 폴더에 설치할 내용을 먼저 만든다 (경로는 최종 위치 기준) ──

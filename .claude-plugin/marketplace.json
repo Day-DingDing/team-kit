@@ -1,14 +1,14 @@
 {
-  "name": "team-kit",
+  "name": "prd-team",
   "owner": {
     "name": "Day-DingDing"
   },
   "description": "팀 키트: Claude Code 팀 프로젝트 키트(A·B)와 B용 session-link 플러그인",
   "plugins": [
     {
-      "name": "team-kit",
+      "name": "prd-team",
       "source": "./",
-      "description": "PRD 하나로 시작하는 팀 프로젝트 키트. /team-kit:a <폴더>, /team-kit:b <폴더> 로 설치한다"
+      "description": "PRD 하나로 시작하는 팀 프로젝트 키트. /prd-team:a <폴더>, /prd-team:b <폴더> 로 설치한다"
     },
     {
       "name": "session-link",
