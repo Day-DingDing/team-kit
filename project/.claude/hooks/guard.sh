@@ -3,13 +3,12 @@
 #  Edit|Write: .env·키 파일 수정 차단, 양식(docs/templates) 수정 차단, 이미 있는 docs/*.md 통째 덮어쓰기 차단
 #  Bash: 강제 push, 기록 지우기(reset --hard, push --delete), 원격 저장소 변경 차단
 input=$(cat)
-eval "$(printf '%s' "$input" | python3 -c '
-import json, shlex, sys
+{ IFS= read -r -d '' tool; IFS= read -r -d '' file_path; IFS= read -r -d '' command; } < <(printf '%s' "$input" | python3 -c '
+import json, sys
 d = json.load(sys.stdin); t = d.get("tool_input", {})
-print("tool=" + shlex.quote(d.get("tool_name", "")))
-print("file_path=" + shlex.quote(t.get("file_path", "")))
-print("command=" + shlex.quote(t.get("command", "")))
-' 2>/dev/null)"
+for v in (d.get("tool_name", ""), t.get("file_path", ""), t.get("command", "")):
+    sys.stdout.write(str(v) + "\0")
+' 2>/dev/null)
 
 if [[ "$tool" == "Edit" || "$tool" == "Write" ]]; then
   name=$(basename "$file_path")
