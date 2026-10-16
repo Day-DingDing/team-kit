@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# 커밋 메시지 규칙: 첫 줄이 [역할] 로 시작해야 한다 (역할 목록은 저장소 루트 team.json). Claude 표기 줄은 넣지 않는다.
+msg_file="$1"
+root=$(git rev-parse --show-toplevel)
+prefixes=$(python3 -c "import json,sys; print('|'.join(r['prefix'] for r in json.load(open(sys.argv[1]))['roles']))" "$root/team.json" 2>/dev/null)
+[ -z "$prefixes" ] && prefixes="총괄|기획|디자인|설계|개발|QA|보안|준법|인프라"
+first=$(head -n1 "$msg_file")
+if ! printf '%s' "$first" | grep -qE "^\[($prefixes)\] .+"; then
+  echo "커밋 거부: 첫 줄은 '[역할] 내용' 형식이어야 합니다. 역할: ${prefixes//|/ } (team.json)" >&2
+  echo "  지금 첫 줄: $first" >&2
+  exit 1
+fi
+if grep -qiE '^(co-authored-by: .*claude|claude-session:)|generated with \[?claude' "$msg_file"; then
+  echo "커밋 거부: Claude 표기 줄(Co-Authored-By / Claude-Session / Generated with)을 빼 주세요." >&2
+  exit 1
+fi
+exit 0

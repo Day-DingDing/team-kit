@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# 팀 키트 A 방식을 원하는 폴더에 설치한다.
+#   team-kit-a <폴더> [--prd <PRD 파일>] [--no-github] [--repo <GitHub 저장소 이름>]
+exec "$(dirname "$(readlink -f "$0")")/../install.sh" --mode a "$@"

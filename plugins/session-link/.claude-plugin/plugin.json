@@ -1,0 +1,9 @@
+{
+  "name": "session-link",
+  "version": "0.1.0",
+  "description": "팀 키트 B 방식: 같은 프로젝트의 역할 세션을 session-link.json 으로 연결해 서로 작업을 요청하고 결과를 회신하게 한다",
+  "author": {
+    "name": "Day-DingDing"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,116 @@
+{
+  "_설명": "역할 목록. 커밋 접두어 규칙(githooks/commit-msg)과 문서 점검(tools/check-docs.py), B 방식 세션 생성이 이 파일을 읽는다. 역할을 더하거나 빼면 여기를 고친다.",
+  "_권한_설명": "permission_mode: start.sh·add-role.sh가 claude --permission-mode 로 넘긴다. bypassPermissions = 묻지 않고 진행(가드 훅은 동작). 확인을 받으려면 default 로 바꾼다. (.claude/settings.json 에 넣으면 Claude Code가 무시한다)",
+  "permission_mode": "bypassPermissions",
+  "ac_max": 30,
+  "roles": [
+    {
+      "id": "lead",
+      "prefix": "총괄",
+      "model": "opus",
+      "aliases": [
+        "pm",
+        "PM",
+        "총괄"
+      ],
+      "deliverables": [
+        "01-plan/plan.md",
+        "09-release/final-report.md",
+        "09-release/retro.md"
+      ]
+    },
+    {
+      "id": "planner",
+      "prefix": "기획",
+      "model": "opus",
+      "aliases": [
+        "기획"
+      ],
+      "deliverables": [
+        "02-requirements/requirements-spec.md"
+      ]
+    },
+    {
+      "id": "designer",
+      "prefix": "디자인",
+      "model": "sonnet",
+      "aliases": [
+        "디자인"
+      ],
+      "deliverables": [
+        "03-design/design-spec.md",
+        "03-design/tokens.css"
+      ]
+    },
+    {
+      "id": "architect",
+      "prefix": "설계",
+      "model": "opus",
+      "aliases": [
+        "설계",
+        "아키텍트"
+      ],
+      "deliverables": [
+        "04-architecture/architecture.md"
+      ]
+    },
+    {
+      "id": "developer",
+      "prefix": "개발",
+      "model": "sonnet",
+      "aliases": [
+        "개발"
+      ],
+      "deliverables": [
+        "05-test/unit-test-report.md"
+      ]
+    },
+    {
+      "id": "qa",
+      "prefix": "QA",
+      "model": "sonnet",
+      "aliases": [
+        "QA",
+        "큐에이"
+      ],
+      "deliverables": [
+        "05-test/test-plan.md",
+        "05-test/test-report.md"
+      ]
+    },
+    {
+      "id": "security",
+      "prefix": "보안",
+      "model": "opus",
+      "aliases": [
+        "보안"
+      ],
+      "deliverables": [
+        "06-security/security-review.md",
+        "06-security/findings.md"
+      ]
+    },
+    {
+      "id": "compliance",
+      "prefix": "준법",
+      "model": "opus",
+      "aliases": [
+        "준법"
+      ],
+      "deliverables": [
+        "07-compliance/compliance-review.md"
+      ]
+    },
+    {
+      "id": "infra",
+      "prefix": "인프라",
+      "model": "sonnet",
+      "aliases": [
+        "인프라"
+      ],
+      "deliverables": [
+        "08-deploy/deploy-guide.md"
+      ]
+    }
+  ]
+}
