@@ -21,7 +21,7 @@ PC마다 한 번 플러그인을 설치합니다.
 설치가 끝나면 터미널에서 `~/work/my-app/start.sh`로 엽니다. 그다음 PM에게 **"docs/prd 의 PRD로 프로젝트를 시작해"**라고 입력합니다.
 
 - 명령은 반드시 `team-kit:` 이름공간을 붙여서 씁니다. 시험해 보니 `/a`나 `/team-kit-a`처럼 이름공간 없이 입력하면 명령으로 인식되지 않았습니다.
-- 저장소가 비공개라서 GitHub 인증이 필요합니다. `gh auth login`과 `gh auth setup-git`을 해 두면 됩니다.
+- 공개 저장소라서 GitHub 로그인 없이 설치할 수 있습니다. (`gh` 로그인은 설치한 프로젝트의 GitHub 저장소를 만들 때만 필요합니다.)
 - 이미 열려 있는 세션에는 설치한 플러그인이 바로 적용되지 않습니다. `/reload-plugins`를 실행하거나 세션을 다시 엽니다.
 - 키트를 최신으로 받으려면 `/plugin marketplace update team-kit`을 실행한 뒤 `/reload-plugins`를 실행합니다.
 
